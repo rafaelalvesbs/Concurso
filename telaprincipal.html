@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maranguape - Tela Principal</title>
+
+  <style>
+    :root{
+      --blue-start:#4DA0FF;
+      --blue-end:#0056D6;
+      --accent:#00E0FF;
+      --success:#16a34a;
+      --danger:#ef4444;
+      --panel:#ffffff;
+      --text:#012a6b;
+      --muted:#5b6b84;
+    }
+
+    *{
+      box-sizing:border-box;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, Helvetica, sans-serif;
+    }
+
+    html,body{
+      margin:0;
+      height:100%;
+    }
+
+    /* fundo moderno */
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg, var(--blue-start), var(--blue-end));
+      padding:22px;
+    }
+
+    /* quadro mais magrinho */
+    .container{
+      width:100%;
+      max-width:600px;
+      background:var(--panel);
+      border-radius:18px;
+      padding:24px;
+      box-shadow:0 12px 40px rgba(0,0,0,0.15);
+      border:1px solid rgba(255,255,255,0.15);
+    }
+
+    header{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:4px;
+      margin-bottom:16px;
+    }
+
+    h1{
+      margin:0;
+      font-size:28px;
+      font-weight:800;
+      color:var(--text);
+      letter-spacing:0.5px;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* caixa de pergunta */
+    .question-box{
+      background:#fff;
+      border-radius:14px;
+      padding:16px;
+      border:1px solid rgba(1,42,107,0.08);
+      box-shadow:0 6px 16px rgba(0,0,0,0.06);
+      font-weight:700;
+      color:var(--text);
+      font-size:16px;
+      margin-bottom:14px;
+      white-space:pre-wrap;
+      word-wrap:break-word;
+    }
+
+    /* alternativas */
+    .options{display:grid;gap:10px;}
+
+    .opt{
+      display:flex;
+      gap:12px;
+      padding:14px;
+      border-radius:14px;
+      background:#ffffff;
+      border:1px solid rgba(1,42,107,0.06);
+      cursor:pointer;
+      transition:0.15s ease;
+      box-shadow:0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .opt:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 25px rgba(0,0,0,0.10);
+    }
+
+    .bullet{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#e8f3ff,#d9ecff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      color:var(--text);
+    }
+
+    .opt .content{
+      flex:1;
+      font-size:15px;
+      color:var(--text);
+      font-weight:600;
+    }
+
+    .opt.selected{
+      border-color:var(--accent);
+      background:linear-gradient(135deg,#eefcff,#e3f9ff);
+    }
+
+    .opt.correct{
+      border-color:var(--success);
+      background:linear-gradient(135deg,#f0fff4,#e4ffe8);
+    }
+
+    .opt.wrong{
+      border-color:var(--danger);
+      background:#ffecec;
+    }
+
+    /* explicação */
+    .explain{
+      display:none;
+      margin-top:12px;
+      padding:12px;
+      border-radius:12px;
+      background:#f7fdf7;
+      border:1px solid rgba(0,0,0,0.05);
+      color:var(--muted);
+    }
+
+    .explain.show{
+      display:block;
+    }
+
+    /* botão enviar */
+    .actions{
+      display:flex;
+      justify-content:flex-end;
+      margin-top:14px;
+    }
+
+    .btn{
+      padding:10px 20px;
+      border-radius:14px;
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.15s;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,var(--accent),var(--blue-start));
+      color:#00324d;
+      box-shadow:0 8px 22px rgba(0,0,0,0.10);
+    }
+
+    /* modal de acerto */
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.45);
+    }
+
+    .modal-backdrop.show{
+      display:flex;
+    }
+
+    .modal{
+      background:white;
+      padding:22px;
+      border-radius:14px;
+      width:90%;
+      max-width:340px;
+      text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    /* responsivo */
+    @media(max-width:500px){
+      .container{padding:18px;}
+      .question-box{font-size:15px;}
+      .opt .content{font-size:14px;}
+      .bullet{width:36px;height:36px;}
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>História de Maranguape</h1>
+      <div class="subtitle">Aprenda sobre a História de Maranguape</div>
+    </header>
+
+    <div class="question-box" id="questionBox">Carregando...</div>
+
+    <div id="options" class="options"></div>
+
+    <div id="explainBox" class="explain">
+      <strong>Explicação:</strong>
+      <div id="explainText" style="margin-top:6px"></div>
+    </div>
+
+    <div class="actions">
+      <button id="btnSubmit" class="btn btn-primary">Enviar</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal">
+      <h2>Parabéns!</h2>
+      <p>Você acertou! Continue assim.</p>
+      <button id="modalNext" class="btn btn-primary" style="margin-top:10px;">Próxima</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+  { q: 'Em qual estado brasileiro fica Maranguape?', choices:['Pernambuco','Ceará','Piauí','Rio Grande do Norte','Paraíba'], answer:1, explain:'Maranguape é um município do estado do Ceará.'},
+  { q: 'Maranguape pertence à região metropolitana de qual capital?', choices:['Sobral','Juazeiro do Norte','Fortaleza','Crato','Quixadá'], answer:2, explain:'Maranguape está na Região Metropolitana de Fortaleza.'},
+  { q: 'Qual o significado do topônimo "Maranguape" (origem tupi)?', choices:['Rio dos Peixes','Vale da Batalha','Terra do Sol','Monte Alto','Água Clara'], answer:1, explain:'O topônimo tem origem tupi e é interpretado como “Vale da Batalha”.'},
+  { q: 'Em que século se consolidou o núcleo urbano em Maranguape com plantações e capela?', choices:['XVII','XVIII','XIX','XX','XVI'], answer:2, explain:'O núcleo urbano se consolidou no século XIX com plantações e a capela local.'},
+  { q: 'Qual atividade agrícola deu impulso à região no século XIX (mencionada nas fontes)?', choices:['Algodão','Cana-de-açúcar','Café','Milho','Soja'], answer:2, explain:'O café foi a principal atividade que impulsionou economicamente a região no século XIX, embora também houvesse cultivo de cana-de-açúcar.'},
+  { q: 'Em que ano, aproximadamente, começou a operar a linha férrea que beneficiou Maranguape?', choices:['1790','1875','1910','1950','2000'], answer:1, explain:'A Estrada de Ferro que passou por Maranguape foi inaugurada por volta de 1875, na segunda metade do século XIX.'},
+  { q: 'Qual serra é parte importante da paisagem de Maranguape?', choices:['Serra da Ibiapaba','Serra de Maranguape','Serra do Araripe','Serra do Baturité','Serra da Capivara'], answer:1, explain:'A Serra de Maranguape é um marco geográfico local.'},
+  { q: 'Maranguape possui projetos culturais que preservam memória local. Qual equipamento citado é dedicado a isso?', choices:['Planetário de Maranguape','Ecomuseu de Maranguape','Museu do Sertão','Museu do Automóvel','Museu Marinho'], answer:1, explain:'O Ecomuseu de Maranguape resgata patrimônio cultural do distrito de Cachoeira.'},
+  { q: 'O Ecomuseu de Maranguape está localizado em qual tipo de edifício histórico?', choices:['antigo banco','casarão do século XIX','igreja barroca','antiga fábrica têxtil','farol colonial'], answer:1, explain:'Ele foi instalado em um casarão do século XIX que abrigou acervo local.'},
+  { q: 'Maranguape foi desmembrado de Fortaleza e recebeu status municipal em qual século?', choices:['XVIII','XIX','XX','XXI','XVII'], answer:1, explain:'O desmembramento/elevação ocorreu no século XIX (meados do século).'},
+  { q: 'Qual famoso humorista brasileiro nasceu em Maranguape?', choices:['Chico Anysio','Renato Aragão','Tom Cavalcante','Paulo Gustavo','Mazzaropi'], answer:0, explain:'Chico Anysio é natural de Maranguape e figura importante da cidade.'},
+  { q: 'Qual atriz, irmã de Chico Anysio, também é citada como nascida em Maranguape?', choices:['Fernanda Montenegro','Lupe Gigliotti','Sônia Braga','Marília Pêra','Leandra Leal'], answer:1, explain:'Lupe Gigliotti (Maria Lupicínia) é citada como filha de Maranguape.'},
+  { q: 'O museu que ocupa a antiga cadeia local é conhecido como:', choices:['Museu da Cidade','Museu do Vaqueiro','Museu do Café','Museu Ferroviário','Museu Maranguapeano'], answer:0, explain:'O Museu da Cidade funciona onde era a antiga cadeia de Maranguape.'},
+  { q: 'Qual rio ou riacho é citado como referência para a aglomeração inicial da vila?', choices:['Rio Jaguaribe','Riacho Pirapora','Rio Acaraú','Riacho Banabuiú','Rio Pajeú'], answer:1, explain:'O riacho Pirapora é mencionado como margem onde se formou o núcleo urbano.'},
+  { q: 'A economia local no século XIX recebeu impulso com qual infraestrutura?', choices:['porto','estrada de ferro','aeroporto','rodovia federal','hidrelétrica'], answer:1, explain:'A estrada de ferro (linha até Baturité) impulsionou a economia local.'},
+  { q: 'O acervo histórico de Maranguape inclui memória sobre qual produção tradicional?', choices:['cachaça','azeite','cerâmica chinesa','têxteis','todas anteriores'], answer:0, explain:'A produção de cachaça e aguardente foi tradicional na região (séc. XIX).'},
+  { q: 'Qual é o gentílico de quem nasce em Maranguape?', choices:['maranguapense','maranguapiano','maranguapano','maranguapino','maranguapeano'], answer:0, explain:'O gentílico usado é “maranguapense”.'},
+  { q: 'Entre as atividades históricas citadas, qual foi feita por colonizadores portugueses via sesmarias?', choices:['pesca','extração de petróleo','pecuária','ocupação de terras e agricultura','mineração de carvão'], answer:3, explain:'Após a saída dos holandeses, houve ocupação portuguesa via sesmarias e agricultura.'},
+  { q: 'Qual arquiteto da região criou coleções ou estudos locais? (assinale o mais associado a estudos históricos)', choices:['João Capistrano de Abreu','Oscar Niemeyer','Lúcio Costa','Aleijadinho','Benedito Calixto'], answer:0, explain:'João Capistrano de Abreu é uma personalidade histórica ligada à região.'},
+  { q: 'O topônimo Maranguape remete a uma figura ou evento indígena — refere-se a:', choices:['um cacique lendário','uma planta típica','um tipo de rocha','uma ave rara','um ritual'], answer:0, explain:'O nome faz alusão a um cacique lendário que dominava a região.'},
+  { q: 'Maranguape situa-se a aproximadamente quantos quilômetros de Fortaleza?', choices:['5 km','27 km','100 km','250 km','400 km'], answer:1, explain:'Maranguape fica por volta de 27 km da capital Fortaleza.'},
+  { q: 'Em que data (ano) há registros de desmembramento/elevação de Maranguape como município (século XIX)?', choices:['1707','1750','1851','1920','1960'], answer:2, explain:'Registros apontam 1851 como ano de criação (desmembramento) do município.'},
+  { q: 'As grutas e serras da região foram visitadas por qual povo europeu em busca de minérios no século XVII?', choices:['Espanhóis','Holandeses','Ingleses','Italianos','Alemães'], answer:1, explain:'Os holandeses passaram pela região em expedições de exploração no século XVII.'},
+  { q: 'Qual é um dos distritos tradicionais de Maranguape, onde há projeto de preservação cultural?', choices:['Cachoeira','Jardim','Aldeota','Meireles','Praia'], answer:0, explain:'O distrito de Cachoeira abriga o Ecomuseu e ações de preservação.'},
+  { q: 'A Escola de São (algo) é tradicional em comemorações locais — esse tipo de evento pertence à área de:', choices:['religiosidade popular','indústria pesada','navegação','mineração','aviação'], answer:0, explain:'A religiosidade popular e festas locais são parte da cultura maranguapense.'},
+  { q: 'Qual produto agrícola foi importante no desenvolvimento inicial da região (além do café)?', choices:['canela','canola','cana-de-açúcar','laranja','batata'], answer:2, explain:'A cana-de-açúcar também teve papel econômico importante no século XIX.'},
+  { q: 'O Ecomuseu de Maranguape possui acervo que registra:', choices:['memória fotográfica e objetos comunitários','apenas veículos antigos','apenas arte moderna','apenas dinossauros','apenas instrumentos musicais'], answer:0, explain:'O ecomuseu reúne fotografias, documentos e objetos da comunidade.'},
+  { q: 'Uma das fontes locais de pesquisa histórica menciona a presença de quais povos indígenas?', choices:['Tapuias, Tupi-Guarani','Potiguaras e Pitaguaris','Inuit e Sioux','Celtas e Saxões','Navajo e Hopi'], answer:1, explain:'Fontes citam potiguaras e pitaguaris entre os povos indígenas da área.'},
+  { q: 'Entre os ofícios tradicionais da região está a cultura do:', choices:['vacuária moderna','vaqueiro e couro','pesca oceânica','indústria automobilística','cinema'], answer:1, explain:'A cultura do vaqueiro e do couro é referida na tradição regional.'},
+  { q: 'O museu instalado na antiga cadeia oferece qual tipo de atividade cultural?', choices:['exposições e memória local','salas de cinema','fábrica de cinema','estação de trem','porto turístico'], answer:0, explain:'O museu oferece exposições sobre a história e memória local.'},
+  { q: 'No século XIX, além da agricultura, qual atividade artesanal/comercial existiu em Maranguape?', choices:['tecelagem industrial','produção de cachaça','fabricação de aviões','construção naval','indústria eletrônica'], answer:1, explain:'Produção de cachaça e aguardente foi uma atividade econômica local.'},
+  { q: 'Qual é a principal língua de documentação e cultura local?', choices:['Tupi antigo','Português','Inglês','Francês','Alemão'], answer:1, explain:'O português é a língua oficial e de documentação local.'},
+  { q: 'O patrimônio arquitetônico do município inclui casarões do século:', choices:['XVII','XVIII','XIX','XX','XXI'], answer:2, explain:'Muitos casarões arquitetônicos locais datam do século XIX.'},
+  { q: 'Maranguape é conhecida por servir como berço de quais figuras culturais?', choices:['escritores e pesquisadores','humoristas e artistas','apenas músicos','somente atletas','apenas políticos'], answer:1, explain:'A cidade é berço de humoristas (ex.: Chico Anysio) e atores.'},
+  { q: 'Qual é uma das atividades promovidas pelo Ecomuseu para juventude local?', choices:['agentes jovens do patrimônio','campeonato de futebol','corrida de carros','feira de tecnologia','industria de software'], answer:0, explain:'O projeto forma Agentes Jovens do Patrimônio para preservar memória.'},
+  { q: 'As primeiras plantações coloniais na região incluíam qual cultura alimentar?', choices:['arroz','milho e mandioca','batata inglesa','cacau','soja'], answer:1, explain:'Milho e mandioca eram cultivados pelos primeiros habitantes.'},
+  { q: 'A infraestrutura ferroviária na região foi desativada em qual século XX?', choices:['início do séc.XX','meados do séc.XX','final do séc.XX','início do séc.XXI','não foi desativada'], answer:1, explain:'A linha foi desativada por volta dos anos 1960 (meados do século XX).'},
+  { q: 'Qual instituto ou arquivo possui publicações sobre a história de Maranguape?', choices:['IBGE','Museu do Ceará','Arquivo Nacional','Biblioteca Nacional','Museu da Cidade'], answer:0, explain:'O IBGE e sua biblioteca têm publicações históricas sobre Maranguape.'},
+  { q: 'O termo "Alto da Vila" foi uma denominação antiga para:', choices:['o município de Sobral','parte do território que viria a ser Maranguape','um bairro de Fortaleza','um rio','um festival'], answer:1, explain:'Alto da Vila foi denominação antiga relacionada ao território de Maranguape.'},
+  { q: 'Qual tipo de evento turístico-cultural é comum na memória local?', choices:['festas populares e romarias','festivais de tecnologia','corridas de Fórmula 1','festivais de sushi','festivais de cinema internacional'], answer:0, explain:'Festas populares e manifestações religiosas fazem parte da cultura local.'},
+  { q: 'O Ecomuseu e o Museu da Cidade estão ligados a qual objetivo principal?', choices:['preservação da memória e patrimônio cultural','construção de shoppings','indústria pesada','pesca industrial','produção de energia eólica'], answer:0, explain:'Ambos visam preservar memória e patrimônio cultural.'},
+  { q: 'Qual é uma atividade de pesquisa frequente para entender a história local?', choices:['arqueologia e história oral','engenharia aeroespacial','biotecnologia','física quântica','geociências marinhas'], answer:0, explain:'História local costuma usar arqueologia e história oral.'},
+  { q: 'Maranguape foi cenário histórico de visita de exploradores europeus em qual época?', choices:['século XIV','século XVII','século XIX','século XX','século XXI'], answer:1, explain:'No século XVII houve expedições, inclusive holandesas, na região.'},
+  { q: 'O nome da serra local (Serra de Maranguape) está associado a:', choices:['atividades de escalada e fontes','produção de petróleo','política internacional','trânsito aéreo','pesca oceânica'], answer:0, explain:'A serra possui grutas, fontes e atrativos naturais usados localmente.'},
+  { q: 'A memória da produção de aguardente/cachaça está ligada a qual cultivo?', choices:['uva','cana-de-açúcar','milho','arroz','feijão'], answer:1, explain:'A cana-de-açúcar é a base da produção de cachaça.'},
+  { q: 'Entre os nomes históricos ligados a Maranguape, qual área de atuação é de João Capistrano de Abreu?', choices:['historiador e jurista','cantor','ator','piloto','futebolista'], answer:0, explain:'João Capistrano de Abreu foi historiador e jurista vinculado à região.'},
+  { q: 'Maranguape guarda registros de quais tipos de documentos em acervos locais?', choices:['fotos, mapas e depoimentos orais','apenas mapas','apenas documentos industriais','apenas arquivos militares','apenas discos de vinil'], answer:0, explain:'Acervos locais incluem fotografias, mapas e depoimentos orais.'},
+  { q: 'A cidade celebra sua memória com documentários e trabalhos estudantis — isso demonstra:', choices:['engajamento comunitário e educação patrimonial','descaso com cultura','dependência tecnológica','industrialização pesada','redução populacional'], answer:0, explain:'Projetos escolares e documentários mostram engajamento com a memória local.'},
+  { q: 'O turismo cultural em Maranguape pode incluir visitas a:', choices:['ecomuseu, casarões e trilhas na serra','resorts de luxo','praias internacionais','centros de pesquisa nuclear','complexos hoteleiros 5 estrelas'], answer:0, explain:'O turismo cultural inclui museus, casarões históricos e áreas naturais.'},
+  { q: 'Qual transporte foi determinante para levar produtos locais ao mercado no século XIX?', choices:['caminhadas','ferrovia','aeronaves','navios de grande porte','metrô'], answer:1, explain:'A ferrovia permitiu escoamento e integração regional no século XIX.'},
+  { q: 'A fundação de fazendas e engenhos do açúcar em Maranguape está ligada a:', choices:['economia escravista do séc.XIX','política moderna','indústria 4.0','energia solar','commerce online'], answer:0, explain:'Muitos engenhos e fazendas do século XIX estiveram relacionados ao sistema escravista.'},
+  { q: 'Atividades culturais locais incluem trabalhos com jovens para preservar memoria — isso é chamado de:', choices:['Agentes Jovens do Patrimônio','Agência de Turismo','Indústria Cultural','Centro Automotivo','Distrito Industrial'], answer:0, explain:'Programas formam Agentes Jovens do Patrimônio para trabalhar com o acervo.'},
+  { q: 'Qual é a relação entre Maranguape e a capital Fortaleza atualmente?', choices:['é bairro de Fortaleza','faz parte da Região Metropolitana de Fortaleza','é capital estadual','não tem ligação','estado vizinho'], answer:1, explain:'Maranguape integra a Região Metropolitana de Fortaleza.'},
+  { q: 'A pesquisa histórica sobre Maranguape pode ser encontrada em publicações de qual órgão federal?', choices:['IBGE','NASA','Banco Mundial','FIFA','OCDE'], answer:0, explain:'O IBGE possui materiais e bibliografia sobre o município.'},
+  { q: 'Qual elemento natural é comum nas trilhas da Serra de Maranguape?', choices:['grutas e fontes','volcano','geleiras','dunas de areia','icebergues'], answer:0, explain:'Grutas e fontes são características locais da serra.'},
+  { q: 'Maranguape teve participação nos processos políticos regionais do Ceará. Isso é registrado em qual instituição local?', choices:['Câmara Municipal','Estádio Municipal','Aeroporto Municipal','Universidade Federal','Museu do Futebol'], answer:0, explain:'A Câmara Municipal registra a história política local.'},
+  { q: 'Qual atividade de pesquisa se relaciona com “Maranguape antigo e seus tipos populares” (texto acadêmico)?', choices:['estudos de memória cultural e classes populares','engenharia de tráfego','tecnologia da informação','farmacologia','engenharia química'], answer:0, explain:'O texto analisa história, memória e tipos populares na cidade.'},
+  { q: 'A data de 17/11/1851 é associada a qual evento importante para Maranguape?', choices:['criação/desmembramento do município','primeira escola','chegada de energia elétrica','primeiro hospital','inauguração do shopping'], answer:0, explain:'Registros indicam 17/11/1851 como data de criação/desmembramento municipal.'},
+  { q: 'Qual foi um ato de modernização que impactou Maranguape no século XIX?', choices:['chegada da estrada de ferro','eletricidade industrial','internet','aeroporto internacional','olimpiadas'], answer:0, explain:'A chegada da estrada de ferro foi um marco de modernização no século XIX.'},
+  { q: 'Quem são destinatários diretos do acervo do Ecomuseu (ex.: suas ações educativas)?', choices:['comunidade local e jovens','apenas turistas estrangeiros','somente pesquisadores internacionais','apenas governantes','apenas colecionadores'], answer:0, explain:'O ecomuseu trabalha com a comunidade local e formação de jovens.'},
+  { q: 'Entre as figuras históricas associadas a Maranguape, qual é reconhecida na imprensa como fundador de jornal local?', choices:['Álvaro da Cunha Mendes','Chico Anysio','João Capistrano','Lupe Gigliotti','Padre Cícero'], answer:0, explain:'Álvaro da Cunha Mendes é citado como fundador do Correio do Ceará.'},
+  { q: 'A tradição do couro e vaqueiro no Ceará está presente em Maranguape — isso refere-se a qual manifestação cultural?', choices:['festas rurais e ofícios tradicionais','festivais de balé','concursos de moda','festivais de cinema','centros de pesquisa'], answer:0, explain:'A tradição rural inclui festas e ofícios ligados ao vaqueiro e ao couro.'},
+  { q: 'O patrimônio histórico arquitetônico de Maranguape inclui casarões ligados a quais períodos?', choices:['período colonial e século XIX','período romano','Belle Époque europeia','século XXI','idade das trevas'], answer:0, explain:'Muitos casarões remontam ao período colonial tardio e ao século XIX.'},
+  { q: 'Atualmente, iniciativas culturais locais podem concorrer a programas estaduais ligados a qual secretaria?', choices:['Secult (Secretaria de Cultura)','Ministério da Agricultura','Ministério da Defesa','Banco Central','Agência Espacial Brasileira'], answer:0, explain:'Projetos culturais costumam interagir com secretarias de cultura estaduais.'},
+  { q: 'Qual foi um efeito da desativação da linha férrea para a cidade (meados do séc. XX)?', choices:['redução do transporte ferroviário e mudanças no escoamento','aumento imediato do turismo internacional','construção de aeroporto internacional','descoberta de petróleo','transformação em porto'], answer:0, explain:'A desativação mudou o modal de transporte e escoamento regional.'},
+  { q: 'A origem da população de Maranguape envolve miscigenação entre colonos, indígenas e quais outros grupos?', choices:['escravos africanos','australianos','japoneses','russo','chineses'], answer:0, explain:'A formação demográfica inclui povos indígenas, colonizadores portugueses e africanos trazidos como escravos.'},
+  { q: 'A preservação da memória de Maranguape é feita por ações de quais agentes locais?', choices:['comunidade, escolas e museus','apenas empresas internacionais','apenas militares','apenas operadoras de telefonia','apenas aeroportos'], answer:0, explain:'Comunidade, escolas e museus locais participam da preservação da memória.'},
+  { q: 'Os estudos e materiais sobre Maranguape podem ser consultados em coleções digitais por qual universidade local (ex.: pesquisa e projetos)?', choices:['UFC (Universidade Federal do Ceará)','USP','Unicamp','UnB','Unifesp'], answer:0, explain:'Projetos e pesquisas sobre Maranguape aparecem em espaços ligados à UFC e centros regionais.'},
+  { q: 'O contexto histórico de Maranguape inclui expedições em busca de que recurso no passado?', choices:['prata e minérios','petróleo','ouro industrial','madeira de lei','diamantes'], answer:0, explain:'Expedições holandesas buscaram minas e minérios na serra (século XVII).'},
+  { q: 'Qual prática cultural costuma acompanhar a memória local em Maranguape — ex.: festas e celebrações?', choices:['romarias e festas populares','competições de Fórmula 1','festas de neve','festivais de sushi','desfiles náuticos'], answer:0, explain:'Romarias e festa populares são tradições locais.'},
+  { q: 'Qual é um dos temas amplamente estudados por pesquisadores em Maranguape (cultura popular)?', choices:['tipos populares, histórias orais e tradições locais','tecnologia da informação','astronomia','navegação espacial','ciência dos materiais'], answer:0, explain:'Pesquisas abordam tipos populares, tradições e memória oral.'},
+  { q: 'Maranguape tem espontaneamente preservado memórias relacionadas a quais grupos sociais?', choices:['trabalhadores rurais e artesãos','indústria automobilística','executivos bancários','pilotos de avião','astronautas'], answer:0, explain:'Trabalhadores rurais e artesãos fazem parte das memórias preservadas.'},
+  { q: 'A história local de Maranguape é registrada em livros como "Maranguape — Sua Gente, Sua História". Isso é exemplo de:', choices:['história local compilada por autores locais','revista de turismo','relatório meteorológico','mapa geológico','catálogo de arte moderna'], answer:0, explain:'Livros locais resgatam e registram a história da cidade.'},
+  { q: 'Qual instrumento de difusão cultural local é citado como peça importante na memória (ex.: jornal)?', choices:['Correio do Ceará','Jornal do Mundo','Folha de Paris','New York Times','Le Monde'], answer:0, explain:'O Correio do Ceará é um jornal local importante na memória histórica.'},
+  { q: 'Qual é um recurso natural citado como importante para a ocupação (fontes da serra)?', choices:['fontes de água e nascentes','lagos de sal','geleiras','mares interioranos','canhões'], answer:0, explain:'As fontes da serra ajudaram na ocupação humana local.'},
+  { q: 'As comemorações e pesquisa local costumam envolver quais atores educacionais?', choices:['escolas e alunos locais','somente universidades estrangeiras','apenas empresas privadas','somente o governo federal','somente ministérios'], answer:0, explain:'Escolas e alunos são atores que participam de projetos de memória local.'},
+  { q: 'Uma franja da história local inclui a presença de qual povo europeu no século XVII?', choices:['holandeses','italianos','portugueses do norte','gregos','noruegueses'], answer:0, explain:'Os holandeses realizaram expedições no território no século XVII.'},
+  { q: 'Qual é um destino cultural de pesquisa para visitantes interessados na história local?', choices:['Ecomuseu e Museu da Cidade','praias turísticas','estádios de futebol','shoppings','aeroportos'], answer:0, explain:'Ecomuseu e Museu da Cidade são pontos de interesse histórico.'},
+  { q: 'A história política local tem registros na Câmara Municipal desde qual século?', choices:['XVIII','XIX','XX','XXI','XVII'], answer:1, explain:'A Câmara Municipal iniciou sua história política no século XIX.'},
+  { q: 'Qual é uma atividade de preservação que transforma um casarão histórico em equipamento cultural?', choices:['criação de ecomuseu','construção de fábrica','demolição para edifício','pavimentação','assentamento industrial'], answer:0, explain:'Casarões históricos têm sido transformados em ecomuseus e museus.'},
+  { q: 'Entre as personalidades citadas, quem é diretamente conhecido nacionalmente pelo trabalho no humor?', choices:['Chico Anysio','Álvaro da Cunha Mendes','João Capistrano','Francisco Benévolo','Lupe Gigliotti'], answer:0, explain:'Chico Anysio se tornou figura nacional no humor.'},
+  { q: 'Maranguape mantém tradições ligadas à produção artesanal — qual exemplo?', choices:['trabalhos manuais e ofícios locais','indústria de software','fabricação de aeronaves','produção de petróleo','produção de automóveis'], answer:0, explain:'Ofícios tradicionais e artesanato compõem a cultura local.'},
+  { q: 'Qual é um dos papéis do Museu da Cidade em Maranguape?', choices:['preservar e contar a história local','gerenciar aeroportos','produzir energia eólica','administrar estradas','controlar comércio exterior'], answer:0, explain:'O museu preserva e exibe a história da cidade.'},
+  { q: 'Os documentos coloniais que citam o território remontam a quais séculos (registros de sesmarias)?', choices:['XVII e XVIII','XX e XXI','XIII e XIV','X','XI','XV'], answer:0, explain:'Registros de sesmarias e doação de terras remontam aos séculos XVII e XVIII.'},
+  { q: 'Qual era a função original de muitos casarões hoje preservados (séc. XIX)?', choices:['residências de fazendeiros e senhores de engenho','escolas técnicas','estados-maiores militares','postos de gasolina','bibliotecas modernas'], answer:0, explain:'Casarões eram moradias de famílias proprietárias e ligados a engenhos.'},
+  { q: 'A economia histórica de Maranguape integrou produção agrícola com qual outro processo?', choices:['comércio e transporte ferroviário','pesca oceânica internacional','indústria automobilística','mineração de carvão','navegação oceânica'], answer:0, explain:'Produção agrícola foi integrada ao comércio via ferrovia e outros modais.'},
+  { q: 'Qual é uma ação contemporânea para difundir memória local nas escolas?', choices:['produção de documentários e projetos escolares','construção de rodovias','implantação de tecnologia espacial','produção de navios','produção de software'], answer:0, explain:'Documentários e projetos escolares ajudam a difundir a memória local.'},
+  { q: 'As fontes e grutas na serra são atrativos para:', choices:['turismo de natureza e pesquisa','atrações de neve','esqui aquático','pesca de atum','sobrevoo de helicóptero'], answer:0, explain:'As grutas e fontes atraem turismo natural e pesquisa.'},
+  { q: 'A memória política local é registrada em qual prédio institucional?', choices:['Câmara Municipal','estádio municipal','porto','aeroporto','shopping'], answer:0, explain:'A Câmara Municipal guarda registros políticos e históricos.'},
+  { q: 'Pesquisa publicada sobre Maranguape pode ser encontrada em quais tipos de documento?', choices:['PDFs acadêmicos, revistas e relatórios locais','apenas redes sociais','somente no YouTube','apenas em livros estrangeiros','nenhum documento existe'], answer:0, explain:'Há PDFs acadêmicos, artigos e livros sobre a cidade.'},
+  { q: 'Que evento transformou em parte da memória local a circulação ferroviária?', choices:['inauguração da estação e tráfego de mercadorias no séc. XIX','instalação de internet 5G','chegada da televisão por assinatura','construção de shopping','inauguração de aeroporto'], answer:0, explain:'A inauguração da estação ferroviária e o tráfego foram marcos locais.'},
+  { q: 'Qual é a importância do patrimônio imaterial (canções, festas) para Maranguape?', choices:['mantém identidades e tradição cultural','é irrelevante','substituiu tudo pela indústria','levou ao abandono total','é apenas folclore sem valor'], answer:0, explain:'Patrimônio imaterial preserva identidades e tradições locais.'},
+  { q: 'A Serra de Maranguape abriga fontes e grutas que foram visitadas por quais exploradores?', choices:['holandeses no passado','novos colonizadores russos','chineses antigos','egípcios','gregos'], answer:0, explain:'Há registros de visitas de holandeses em expedições históricas.'},
+  { q: 'O processo de resgate do acervo audiovisual do ecomuseu envolve:', choices:['digitalização e curadoria comunitária','construção de ruas','produção de petróleo','exploração mineradora','construção de pontes'], answer:0, explain:'Projetos incluem digitalização e curadoria com a comunidade.'},
+  { q: 'Qual é uma ação cultural que valoriza a juventude local em Maranguape?', choices:['formação de Agentes Jovens do Patrimônio','contratação de empresas estrangeiras','construção de aeroportos','implantação de minas','construção de usinas nucleares'], answer:0, explain:'Formação de jovens para cuidar do patrimônio é prática local.'},
+  { q: 'O desbravamento e ocupação primitiva da região teve como atores principais:', choices:['índios, colonos e escravos','somente colonos ingleses','somente empresas estrangeiras','somente nativos australianos','apenas romanos'], answer:0, explain:'Índios, colonos portugueses e pessoas escravizadas compõem a história inicial.'},
+  { q: 'As festas populares locais frequentemente combinam elementos de:', choices:['religiosidade popular e tradição rural','industrialização e tecnologia','aviação e astronauta','navegação oceânica','cultura japonesa'], answer:0, explain:'Religiosidade e tradição rural compõem as festas locais.'},
+  { q: 'Os acervos locais são importantes para professores porque:', choices:['permitem ensino da história local em sala de aula','são irrelevantes','só servem para turismo internacional','são somente para museus de fora','são sigilosos'], answer:0, explain:'Acervos possibilitam ensino e pesquisa sobre a história local.'},
+  { q: 'A produção local de cachaça histórica está ligada a quais pontos econômicos?', choices:['engenhos e destilarias rurais do século XIX','parques tecnológicos','indústria aeroespacial','complexos portuários','centros comerciais modernos'], answer:0, explain:'Destilarias e engenhos tradicionais produziram aguardente e cachaça.'},
+  { q: 'Qual é um ingrediente cultural que torna Maranguape objeto de estudo?', choices:['mistura de história, memória e tradição popular','apenas comércio moderno','apenas tecnologia','apenas finanças internacionais','apenas agricultura moderna'], answer:0, explain:'A confluência de história, memória e tradição popular atraem estudos.'},
+  { q: 'O registro das memórias locais frequentemente se vale de:', choices:['entrevistas e registros audiovisuais','apenas estatísticas','apenas números econômicos','apenas imagens de satélite','apenas meteorologia'], answer:0, explain:'Entrevistas e gravações ajudam a documentar memórias locais.'},
+  { q: 'Por fim: Maranguape continua sendo uma cidade marcada por:', choices:['patrimônio histórico, serra e cultura popular','apenas indústria pesada','apenas praias turísticas','apenas polos financeiros','apenas tecnologia de ponta'], answer:0, explain:'Maranguape mantém legado histórico, paisagem serrana e cultura popular.'}
+];
+
+    let current = Math.floor(Math.random() * questions.length);
+let selected = null;
+
+    const questionBox=document.getElementById("questionBox");
+    const opts=document.getElementById("options");
+    const explainBox=document.getElementById("explainBox");
+    const explainText=document.getElementById("explainText");
+    const btnSubmit=document.getElementById("btnSubmit");
+    const modal=document.getElementById("modal");
+    const modalNext=document.getElementById("modalNext");
+
+    function renderQuestion(){
+      const item=questions[current];
+      questionBox.textContent=item.q;
+
+      opts.innerHTML="";
+      explainBox.classList.remove("show");
+      btnSubmit.textContent="Enviar";
+      selected=null;
+
+      item.choices.forEach((c,i)=>{
+        const div=document.createElement("div");
+        div.className="opt";
+        div.setAttribute("data-index",i);
+
+        const bullet=document.createElement("div");
+        bullet.className="bullet";
+        bullet.textContent=String.fromCharCode(65+i);
+
+        const content=document.createElement("div");
+        content.className="content";
+        content.textContent=c;
+
+        div.appendChild(bullet);
+        div.appendChild(content);
+
+        div.onclick=()=>selectOption(div,i);
+
+        opts.appendChild(div);
+      });
+    }
+
+    function selectOption(el,index){
+      opts.querySelectorAll(".opt").forEach(o=>o.classList.remove("selected"));
+      el.classList.add("selected");
+      selected=index;
+    }
+
+    function handleSubmit(){
+      if(selected===null){alert("Escolha uma alternativa!");return;}
+
+      const item=questions[current];
+      const isCorrect=(selected===item.answer);
+
+      if(isCorrect){
+        modal.classList.add("show");
+      }else{
+        opts.querySelectorAll(".opt")[item.answer].classList.add("correct");
+        opts.querySelector(`.opt[data-index="${selected}"]`).classList.add("wrong");
+        explainText.textContent=item.explain;
+        explainBox.classList.add("show");
+        btnSubmit.textContent="Próxima";
+      }
+    }
+
+    function goNext(){
+      modal.classList.remove("show");
+      current=(current+1)%questions.length;
+      renderQuestion();
+    }
+
+    btnSubmit.onclick=()=> btnSubmit.textContent==="Enviar" ? handleSubmit() : goNext();
+    modalNext.onclick=goNext;
+
+    renderQuestion();
+  </script>
+
+</body>
+</html>
