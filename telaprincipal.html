@@ -32,7 +32,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      background:#003058;
+      background:linear-gradient(135deg, var(--blue-start), var(--blue-end));
       padding:22px;
     }
 
@@ -212,8 +212,8 @@
 
   <div class="container">
     <header>
-      <h1>História de Maranguape</h1>
-      <div class="subtitle">Aprenda sobre a História de Maranguape</div>
+      <h1>Língua Portuguesa</h1>
+      <div class="subtitle">Aprenda sobre Língua Portuguesa</div>
     </header>
 
     <div class="question-box" id="questionBox">Carregando...</div>
@@ -240,21 +240,939 @@
   </div>
 
   <script>
- const questions = [
+    const questions = [
+  {
+    q: "Assinale a opção em que nem todas as palavras possuem o mesmo radical:",
+    choices: [
+      "noite, anoitecer, noitada",
+      "luz, luzeiro, alumiar",
+      "incrível, crente, crer",
+      "festa, festeiro, festejar",
+      "riqueza, ricaço, enriquecer"
+    ],
+    answer: 1,
+    explain: "Na alternativa correta, 'luz' e 'luzeiro' possuem o mesmo radical, enquanto 'alumiar' tem radical diferente ('lumin-'), apesar de apresentar relação de sentido. Nas demais alternativas, todas as palavras derivam do mesmo radical."
+  },
+  {
+    q: "A série em que os vocábulos enumerados se relacionam porque provêm da mesma raiz é:",
+    choices: [
+      "florescer, flandres, florear",
+      "pousada, aposentado, cômodo",
+      "reger, regulamento, regra",
+      "corte, percurso, correr",
+      "angústia, ângulo, anjo"
+    ],
+    answer: 2,
+    explain: "Na alternativa correta, os vocábulos 'reger', 'regulamento' e 'regra' derivam da mesma raiz latina 'reg-', relacionada à ideia de governar ou dirigir. Nas demais alternativas, as palavras têm origens etimológicas diferentes."
+  },
 
-  { q:'Segundo o texto, o termo "guabe" significa:', choices:['Comer','Guerreiro','Árvore','Fruto','Apertado'], answer:0, explain:'"Guabe" significa comer.' },
-  { q:'A palavra "mara", segundo o texto, significa:', choices:['Mato','Árvore','Sabedor','Guerra','Fruto'], answer:1, explain:'"Mara" significa árvore.' },
-  { q:'Para José de Alencar, “maramonhang” se relaciona a:', choices:['Guerreiro','Comer','Árvore','Apertado','Mato'], answer:0, explain:'“Maramonhang” aparece ligado a “guerreiro, sabedor da guerra”.' },
-  { q:'O termo "coaib", citado no texto, significa:', choices:['Sabedor','Árvore','Fruto','Comer','Cerrado'], answer:0, explain:'"Coaib" significa sabedor.' },
-  { q:'Segundo Paulino Nogueira, Maranguape significaria:', choices:['Árvore de comer','Apertado e cerrado','Guerreiro da mata','Mato fechado','Rio estreito'], answer:0, explain:'Significa “árvore de comer, ou de fruto que se come”.' },
-  { q:'Segundo João Brigido, Maranguape é corrupção de:', choices:['Maragoa, Maragoab, Maragoaba','Guab e Goa','Mara e guabe','Goab e coaib','Nenhum deles'], answer:0, explain:'Ele cita exatamente Maragoa, Maragoab e Maragoaba.' },
-  { q:'Os holandeses chamavam o local da atual Maranguape de:', choices:['Maragoab','Marágoa','Coaib','Goab','Guabe'], answer:1, explain:'Os holandeses chamavam o local de “Marágoa”.' },
-  { q:'O termo indígena "Goab" significa:', choices:['Apertado, cerrado','Fruto comestível','Árvore','Sabedor','Guerreiro'], answer:0, explain:'Goab (e Goa) significa “apertado, cerrado”.' },
-  { q:'Entre os portugueses houve confusão entre os termos:', choices:['Maragoa, Maragoab e Maragoaba','Mara, guabe e coaib','Goa, Goab e Guabe','Maragonha e Maragoba','Nenhuma alternativa'], answer:0, explain:'O texto cita confusão entre Maragoa, Maragoab e Maragoaba.' },
-  { q:'O texto afirma que Guab é o mesmo que:', choices:['Qua','Mara','Goab','Maragoa','Coaib'], answer:0, explain:'O texto diz: “Guab é o mesmo que Qua”.' },
-  { q:'Segundo o texto, o termo “Mara” também pode significar:', choices:['Mato','Sabedor','Guerreiro','Apertado','Ramo'], answer:0, explain:'Também é dito que “Mara quer dizer mato”.' },
-  { q:'A nota de rodapé explica que a descrição do município foi feita:', choices:['Em linhas gerais','Com foco na individualização','Com ênfase na geografia','Apenas com documentos holandeses','Com precisão estatística'], answer:0, explain:'A nota diz que o município foi descrito “em suas linhas gerais”.' }
+  {
+    q: "Assinale a única opção em que ocorre variante do radical:",
+    choices: [
+      "dizer, dizes, dizia",
+      "faço, fazes, façamos",
+      "amaria, amavas, amou",
+      "quero, queres, querias",
+      "vência, venceste, vence"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, 'faço, fazes, façamos' apresentam variante de radical ('faz-' e 'faç-'), enquanto nas demais, o radical permanece constante."
+  },
+  {
+    q: "Assinale a opção em que há erro na identificação do elemento mórfico grifado:",
+    choices: [
+      "compostas: desinência de feminino",
+      "quadrar: radical",
+      "adotei vogal temática",
+      "pareceram: vogal temática",
+      "influência: desinência de feminino"
+    ],
+    answer: 3,
+    explain: "Na alternativa D, 'pareceram', a marca -eram é desinência modo-temporal, e não vogal temática, portanto é a identificação incorreta."
+  },
+  {
+    q: "Vocábulo onde existe desinência de gênero:",
+    choices: [
+      "segredo",
+      "curiosidade",
+      "força",
+      "verbo",
+      "alheia"
+    ],
+    answer: 4,
+    explain: "A alternativa E, 'alheia', apresenta a desinência de gênero '-a', indicando feminino. As demais palavras não têm desinência de gênero explícita."
+  },
+  {
+    q: "Assinale a alternativa sem desinência modo-temporal:",
+    choices: [
+      "aplaudias",
+      "acordou",
+      "faltarás",
+      "vendam",
+      "cobrasses"
+    ],
+    answer: 3,
+    explain: "A alternativa C, 'faltarás', contém desinência modo-temporal. Se a questão pede 'sem desinência modo-temporal', a alternativa correta é a que não marca modo-tempo explicitamente; aqui as outras têm desinência verbal completa."
+  },
+  {
+    q: "Assinale a opção em que o processo de formação de palavras está indevidamente caracterizado:",
+    choices: [
+      "vaga-lume: composição",
+      "cruzeiro: sufixação",
+      "palmeira: sufixação",
+      "irritação: sufixação",
+      "baunilha: sufixação"
+    ],
+    answer: 4,
+    explain: "A alternativa E, 'baunilha', não é formada por sufixação; trata-se de palavra primitiva. As demais classificações estão corretas."
+  },
+  {
+    q: "Indique a palavra que foge ao processo de formação de chape-chape:",
+    choices: [
+      "zunzum",
+      "reco-reco",
+      "toque-toque",
+      "tlim-tlim",
+      "vivido"
+    ],
+    answer: 4,
+    explain: "A palavra 'vivido' não é formada pelo processo de repetição ou reduplicação, ao contrário das outras palavras."
+  },
+  {
+    q: "Assinale a letra em que as palavras são formadas por derivação regressiva, derivação parassintética e composição por aglutinação, respectivamente.",
+    choices: [
+      "neurose, infelizmente, pseudônimo",
+      "ajuste, aguardente, arco-íris",
+      "amostra, alinhar, girassol",
+      "corte, emudecer, outrora",
+      "pesca, deslealdade, vinagre"
+    ],
+    answer: 0,
+    explain: "Na alternativa A: 'neurose' (derivação regressiva), 'infelizmente' (derivação parassintética) e 'pseudônimo' (composição por aglutinação)."
+  },
+  {
+    q: "Grupo de três palavras formadas por DERIVAÇÃO:",
+    choices: [
+      "pesaroso, apelo (subst.), refazer",
+      "pontapé, introduzir, cipoal",
+      "decímetro, casamento, namoro (subst.)",
+      "cine, guarda-roupa, infiel",
+      "infelizmente, amolecer, varapau"
+    ],
+    answer: 0,
+    explain: "Na alternativa A, todas as palavras são formadas por derivação: 'pesaroso' (sufixal), 'apelo' (sufixal), 'refazer' (prefixal)."
+  },
+  {
+    q: "Indique a opção em que foram utilizados processos de formação de palavras idênticos aos dos vocábulos plenilúncio / burocracia:",
+    choices: [
+      "vaivém / saca-rolhas",
+      "surdo-mudo / corre-corre",
+      "aguardente / alcoômetro",
+      "vaivém / automóvel",
+      "planalto / vinagre"
+    ],
+    answer: 3,
+    explain: "Na alternativa D, 'vaivém' e 'automóvel' são formadas por composição (plena e por justaposição), assim como 'plenilúncio' e 'burocracia'."
+  },
+  {
+    q: "Assinale a opção onde se indica erroneamente o processo de formação:",
+    choices: [
+      "encontrável: derivação sufixal",
+      "inesperado: derivação prefixal",
+      "emudecer: derivação sufixal",
+      "inaudível: derivação prefixal",
+      "canto: derivação regressiva"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, 'inesperado' é derivação sufixal (não prefixal), portanto a indicação está errada."
+  },
+  {
+    q: "Assinale o vocábulo que apresenta o mesmo processo de formação de vaga-lume:",
+    choices: [
+      "descobriu",
+      "lembrança",
+      "encantamento",
+      "doçura",
+      "fios-de-ovos"
+    ],
+    answer: 4,
+    explain: "O vocábulo 'fios-de-ovos' é formado por composição por justaposição ou hibridismo, igual ao processo de 'vaga-lume'."
+  },
+
+    {
+    q: "Assinale o par de vocábulos cujos prefixos possuem valor locativo, indicando, respectivamente, as ideias de por cima e por baixo:",
+    choices: [
+      "hipertrofia / hipotensão",
+      "hipérbole / perímetro",
+      "exotérmico / hemisférico",
+      "epiderme / prólogo",
+      "introduzir / decrescer"
+    ],
+    answer: 0,
+    explain: "Na alternativa A, 'hiper-' indica excesso/por cima e 'hipo-' indica insuficiência/por baixo."
+  },
+  {
+    q: "Observe, nos vocábulos que se seguem, que o mesmo sufixo pode ser escrito de formas diferentes: com c (aplicação), s (expansão) e ss (intromissão). Assinale a série em que um dos substantivos apresenta o sufixo grafado de modo incorreto:",
+    choices: [
+      "rendição, presunção, fixação",
+      "discussão, excessão, admissão",
+      "diversão, compreensão, distensão",
+      "paralisação, pulsação, cassação",
+      "submissão, sucessão, concessão"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, 'excessão' está grafado incorretamente; o correto seria 'exceção'."
+  },
+  {
+    q: "Assinale a opção em que todos os verbos formam substantivos designativos da ação ou do resultado dela – por meio de sufixos distintos entre si:",
+    choices: [
+      "apreender, pressintir, converter",
+      "descrever, crer, dedicar",
+      "confessar, lembrar, transmitir",
+      "suprimir, esquecer, tolerar",
+      "iniciar, prever, aceitar"
+    ],
+    answer: 2,
+    explain: "Na alternativa C, 'confessar' -> confissão, 'lembrar' -> lembrança, 'transmitir' -> transmissão; todos formam substantivos com sufixos diferentes."
+  },
+  {
+    q: "Assinale o par de vocábulos cujos sufixos possuem valor semântico idêntico ao dos sufixos de brasileiro e escureza, respectivamente:",
+    choices: [
+      "espanhol / mansidão",
+      "laranjeira / honradez",
+      "cearense / dentista",
+      "budismo / venenoso",
+      "francês / leitura"
+    ],
+    answer: 0,
+    explain: "'-ol' em espanhol e '-eza' em escureza possuem função semelhante aos sufixos de brasileiro e escureza."
+  },
+  {
+    q: "Assinale o par de vocábulos cujos sufixos possuem valor semântico idêntico ao dos sufixos de brasileiro e altura, respectivamente:",
+    choices: [
+      "budismo / leitura",
+      "espanhol / beleza",
+      "paraense / dentista",
+      "coqueiro / formatura",
+      "sulista / nomeação"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, '-ol' e '-eza' têm função semântica idêntica aos sufixos indicados na questão."
+  },
+  {
+    q: "Assinale o vocábulo cujo sufixo traduz a mesma ideia que o sufixo de bebedouro:",
+    choices: [
+      "duradouro",
+      "inibitório",
+      "satisfatório",
+      "vindouro",
+      "dormitório"
+    ],
+    answer: 0,
+    explain: "O sufixo '-douro' indica função ou local, igual ao de 'bebedouro'."
+  },
+  {
+    q: "Assinale o par de vocábulos cujos prefixos guardam entre si oposição semântica:",
+    choices: [
+      "inconsciente / anormal",
+      "antevisão / predestinação",
+      "contracultura / anticorpo",
+      "interplanetário / entrelinha",
+      "importado / exposto"
+    ],
+    answer: 0,
+    explain: "'in-' e 'a-' indicam negação/oposição, sendo semanticamente opostos."
+  },
+  {
+    q: "Assinale o par de vocábulos cujos prefixos possuem valor locativo, indicando, respectivamente, as ideias de por cima e por baixo:",
+    choices: [
+      "supracitar / hipotenso",
+      "sobrevir / subnutrido",
+      "superposição / subsequente",
+      "hipersensibilidade / subcutâneo",
+      "sobrevoar / hipodérmico"
+    ],
+    answer: 2,
+    explain: "'super-' indica por cima e 'sub-' indica por baixo, assim como na alternativa C."
+  },
+  {
+    q: "Assinale o par de vocábulos que não guardam entre si a relação existente entre vernáculo / vernaculizar:",
+    choices: [
+      "falso / falsificar",
+      "suave / suavizador",
+      "verniz / envernizar",
+      "puro / purificar",
+      "universal / universalizar"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, 'suave / suavizador' não segue o mesmo padrão de derivação do tipo verbo/substantivo como vernáculo / vernaculizar."
+  },
+  {
+    q: "Assinale o par de vocábulos que guardam entre si a mesma relação significativa existente entre considerar / consideração:",
+    choices: [
+      "desenvolver / desenvolvimento",
+      "realizar / realizável",
+      "opor / oponente",
+      "criar / criativo",
+      "matar / matadouro"
+    ],
+    answer: 0,
+    explain: "Na alternativa A, o par mantém a relação verbo -> substantivo da ação/resultante, como considerar -> consideração."
+  },
+  {
+    q: "Vocábulo cujo prefixo se distingue semanticamente do de imprevisto:",
+    choices: [
+      "impor",
+      "inútil",
+      "legível",
+      "imperfeito",
+      "incompetência"
+    ],
+    answer: 2,
+    explain: "O prefixo 'le-' em 'legível' não tem relação de negação ou sentido similar a 'im-' de 'imprevisto'."
+  },
+  {
+    q: "O sufixo do vocábulo habilidade e o sufixo do vocábulo transferência são usados para derivar, respectivamente, nomes das seguintes formas:",
+    choices: [
+      "íntimo / revelar",
+      "sutil / surgiu",
+      "efêmero / ocorrer",
+      "pobre / advertir",
+      "intenso / comprometer"
+    ],
+    answer: 0,
+    explain: "O sufixo '-dade' em 'habilidade' e '-ção' em 'transferência' derivam nomes correspondentes à ação ou qualidade."
+  },
+  {
+    q: "O par de vocábulos formados com prefixos de significados diferentes é:",
+    choices: [
+      "euforia, benefício",
+      "percorrer, recorrer",
+      "predizer, programar",
+      "ultrapassar, transpor",
+      "anfiteatro, perimetral"
+    ],
+    answer: 1,
+    explain: "'percorrer' (por) e 'recorrer' (de) têm prefixos de sentidos opostos/diferentes."
+  },
+  {
+    q: "Assinale o par de vocábulos que não guardam entre si a mesma relação semântica existente entre regular / regularizar:",
+    choices: [
+      "diverso / diversificar",
+      "caráter / caracterizar",
+      "brasileiro / abrasileirar",
+      "geral / geralizar",
+      "forte / fortalecer"
+    ],
+    answer: 0,
+    explain: "Na alternativa A, 'diverso / diversificar' não mantém a mesma relação verbo / derivado como regular / regularizar."
+  },
+
+  {
+    q: "Assinale a opção em que nem todas as palavras têm o mesmo radical.",
+    choices: [
+      "dizendo, indizível, diríamos",
+      "batida, batedeira, combater",
+      "legalidade, ilegalizar, inelegibilidade",
+      "caracterização, descaracterizar, caracterizava",
+      "embrutecer, bruto, brutal"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, 'batida' e 'batedeira' têm o radical 'bat-', enquanto 'combater' tem radical diferente 'comb-'."
+  },
+  {
+    q: "A opção em que não se verifica variação de radical é:",
+    choices: [
+      "valho - valeria - valêsse-mos",
+      "coubeste - cabes - caibas",
+      "brincam - brinques - brincávamos",
+      "sentíeis - sinta - sentiram",
+      "servistes - sirvo - servira"
+    ],
+    answer: 0,
+    explain: "Na alternativa A, o radical 'val-' permanece constante em todas as formas verbais."
+  },
+  {
+    q: "Assinale a opção em que todas as palavras possuem um mesmo radical.",
+    choices: [
+      "favo - favor - favorável",
+      "luz - luzeiro - aluminar",
+      "perfumado - fumaça - fumo",
+      "virgem - virginal - viavem",
+      "as letras “b” e “d” estão corretas"
+    ],
+    answer: 4,
+    explain: "As alternativas B e D apresentam palavras com radicais diferentes; apenas A e C são homogêneas, portanto a opção correta é E."
+  },
+  {
+    q: "Assinale o INCORRETO quanto à análise mórfica da forma verbal DEIXARA:",
+    choices: [
+      "deix - radical",
+      "a - (o primeiro) - vogal temática",
+      "deixa - tema",
+      "ra - desinência / sufixo modo temporal",
+      "a - (o segundo) - desinência / sufixo número-pessoal"
+    ],
+    answer: 2,
+    explain: "A forma 'deixa' não é um tema separado; a análise correta identifica 'deix-' como radical, 'a' como vogal temática, 'ra' como desinência modo-temporal, e 'a' final como número-pessoal."
+  },
+  {
+    q: "Não é COMPOSIÇÃO por AGLUTINAÇÃO:",
+    choices: [
+      "fidalgo",
+      "petróleo",
+      "manda-chuva",
+      "aguardente",
+      "horticultura"
+    ],
+    answer: 0,
+    explain: "A palavra 'fidalgo' é primitiva, não formada por aglutinação; as demais são compostas."
+  },
+  {
+    q: "O processo que gerou o substantivo brilhante, a partir do adjetivo brilhante, é chamado:",
+    choices: [
+      "reduplicação",
+      "regressão",
+      "conversão",
+      "parassíntese",
+      "aglutinação"
+    ],
+    answer: 2,
+    explain: "O substantivo 'brilhante' deriva do adjetivo sem alteração morfológica, processo chamado conversão."
+  },
+  {
+    q: "Assinale a opção em que todas as palavras obedecem ao mesmo processo de formação:",
+    choices: [
+      "aguardente - girassol - reco-reco",
+      "boiada - garotada - aterro",
+      "sociologia - burocracia - televisão",
+      "passatempo - fidalgo - decímetro",
+      "descobrir - infeliz - planalto"
+    ],
+    answer: 0,
+    explain: "Na alternativa A, todas as palavras são formadas por composição."
+  },
+  {
+    q: "Incorreta a caracterização do processo de formação:",
+    choices: [
+      "meio-dia: composição por justaposição",
+      "fortalecer: derivação sufixal",
+      "demora (substantivo): derivação regressiva",
+      "fonseca: derivação sufixal",
+      "pneu: abreviação"
+    ],
+    answer: 3,
+    explain: "'Fonseca' não é formado por derivação sufixal; é um nome próprio."
+  },
+  {
+    q: "Em '. . . Dádiva ao Senhor . . .' A palavra Senhor é um exemplo de:",
+    choices: [
+      "derivação regressiva",
+      "aglutinação",
+      "conversão",
+      "reduplicação",
+      "derivação sufixial"
+    ],
+    answer: 2,
+    explain: "'Senhor' é substantivo primitivo, sem processo de derivação; portanto, é um exemplo de conversão em relação a funções nominais do contexto."
+  },
+  {
+    q: "Assinale a série de vocábulos em que todos os sufixos exprimem noção de qualidade:",
+    choices: [
+      "sensibilidade - delicadeza - docemente",
+      "decoração - bronzeado - selvagem",
+      "fraqueza - doçura - ferocidade",
+      "sentimento - rapidamente - majestosa",
+      "dourado - vegetação - beleza"
+    ],
+    answer: 2,
+    explain: "Na alternativa C, todos os sufixos ('-eza', '-ura', '-idade') indicam qualidade ou característica."
+  },
+  {
+    q: "Assinale a opção em que o afixo da palavra tenha o mesmo sentido que o encontrado na palavra ESCORRER:",
+    choices: [
+      "introduzir",
+      "importar",
+      "exportar",
+      "decair",
+      "soterrar"
+    ],
+    answer: 2,
+    explain: "O prefixo 'ex-' em 'exportar' indica movimento para fora, assim como em 'escorrer'."
+  },
+  {
+    q: "Assinale o par de vocábulos que guardam entre si a mesma relação significativa existente entre EXPORTAR / EXPORTAÇÃO:",
+    choices: [
+      "importar / importador",
+      "estudar / estudante",
+      "descobrir / descobrimento",
+      "opor / oponente",
+      "ouvir / audível"
+    ],
+    answer: 2,
+    explain: "Na alternativa C, 'descobrir' e 'descobrimento' têm a mesma relação verbo -> substantivo de ação/resultante."
+  },
+  {
+    q: "Assinale a opção em que as palavras obedecem aos mesmos processos de formação que os das palavras: INÚTIL, QUERO-QUERO e ATUANTE:",
+    choices: [
+      "supercílio / decreto-lei / estudantE",
+      "dissecar / reco-reco / destoante",
+      "soterrar / toque-toque / loucura",
+      "desfolhar / tico-tico / fidalgo",
+      "ilegal / couve-flor / navegante"
+    ],
+    answer: 1,
+    explain: "Na alternativa B: 'dissecar' (derivação), 'reco-reco' (reduplicação), 'destoante' (derivação sufixal), correspondendo aos processos de formação das palavras do enunciado."
+  },
+  {
+    q: "Assinale a alternativa em que o par de vocábulos apresenta prefixos de mesma significação:",
+    choices: [
+      "imposição – impossível",
+      "adjunto – abstar",
+      "desfazer – decair",
+      "hipótese – supor",
+      "subserviente – subseqüente"
+    ],
+    answer: 0,
+    explain: "Os prefixos 'im-' em ambas palavras indicam negação, ou seja, têm o mesmo valor semântico."
+  },
+
+  {
+    q: "As palavras preferência e rotação: são formadas com sufixos -ncia e -ção, também formadores, respectivamente, de substantivos derivados dos seguintes verbos:",
+    choices: [
+      "repetir - estabelecer",
+      "concordar - objetar",
+      "cumpir - cassar",
+      "surgir - atuar",
+      "abstrair - aferir"
+    ],
+    answer: 1,
+    explain: "'Preferência' deriva de 'preferir' (repetição da ideia de escolha) e 'rotação' deriva de 'rotar' (estabelecer movimento)."
+  },
+  {
+    q: "Assinale a opção em que o elemento mórfico está devidamente caracterizado.",
+    choices: [
+      "Emprestaste: -STES é desinência de segunda pessoa do singular",
+      "Emprestas: -A é a vogal temática",
+      "Venderíamos: -RIA é DMT de mais-que-perfeito",
+      "Explicavas: -VA é DMT de mais-que-perfeito",
+      "Aprendas: -A é vogal temática"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, a vogal 'A' é corretamente identificada como vogal temática do verbo 'emprestar'."
+  },
+  {
+    q: "Assinale o item em que o elemento mórfico foi analisado incorretamente.",
+    choices: [
+      "Interessem-DMT: SSEM",
+      "Pegassem-VT: A",
+      "Produzido-radical: PRODUZ",
+      "Contivemos-DMT: E",
+      "as letras “A” e “B” apresentam erro na classificação dos elementos mórfico"
+    ],
+    answer: 4,
+    explain: "As alternativas A e B apresentam erro na identificação dos elementos mórficos, sendo a E a correta."
+  },
+  {
+    q: "Nos prefixos das palavras: RENOVO, INSENSÍVEL e CONCORRER, há, respectivamente, as ideias de:",
+    choices: [
+      "repetição, concomitância, afastamento",
+      "repetição, negação, concomitância",
+      "repetição, aproximação, concomitância",
+      "concomitância, negação, aproximação",
+      "repetição, negação, aproximação"
+    ],
+    answer: 4,
+    explain: "'RE-' indica repetição, 'IN-' negação, 'CON-' aproximação/união."
+  },
+  {
+    q: "Assinale o par em que os prefixos, um grego e outro latino, não são sinônimos:",
+    choices: [
+      "HIPO / SUB (posição inferior)",
+      "DI / DIS (duplicidade)",
+      "HEMI / SEMI (metade)",
+      "PERI / CIRCUN (movimento em torno de)",
+      "A / IN (negação)"
+    ],
+    answer: 1,
+    explain: "DI (grego) e DIS (latino) não são sinônimos; têm origens diferentes."
+  },
+  {
+    q: "Incorreta a correlação de prefixos em:",
+    choices: [
+      "infiel - antítese",
+      "sublingual - hipótese",
+      "decapitar - catarata",
+      "semideus - hemisfério",
+      "heneplácito - eutanásia"
+    ],
+    answer: 0,
+    explain: "Na alternativa A, 'infiel' e 'antítese' não têm prefixos correlacionáveis, sendo a correlação incorreta."
+  },
+  {
+    q: "Par de vocábulos com sufixos de valor correspondente ao das palavras CAÇADOR e BANANAL:",
+    choices: [
+      "amor - natural",
+      "ardor - atual",
+      "pendor - cipoal",
+      "amante - folhagem",
+      "pianista - antiquário"
+    ],
+    answer: 3,
+    explain: "Na alternativa D, os sufixos '-ante' e '-agem' indicam função ou coleção, correspondendo a '-dor' e '-al'."
+  },
+  {
+    q: "Identifique os vocábulos que foram formados por prefixos latinos e gregos, respectivamente, e que guardam a mesma significação:",
+    choices: [
+      "reler / hemisférios",
+      "compor / apogeu",
+      "reatar / refazer",
+      "decair / catarata",
+      "pospor / exôdo"
+    ],
+    answer: 1,
+    explain: "'Com-' (latino) e 'apo-' (grego) mantêm a mesma significação de adição/aproximação."
+  },
+  {
+    q: "Assinale a palavra cujo prefixo grego significa afastamento:",
+    choices: [
+      "eufemismo",
+      "disfagia",
+      "apogeu",
+      "ateu",
+      "anemia"
+    ],
+    answer: 2,
+    explain: "O prefixo 'apo-' em 'apogeu' indica afastamento."
+  },
+  {
+    q: "Idem para separação:",
+    choices: [
+      "eufonia",
+      "afonia",
+      "protagonista",
+      "anatomia",
+      "hipogeu"
+    ],
+    answer: 3,
+    explain: "O prefixo 'ana-' em 'anatomia' indica separação ou divisão."
+  },
+  {
+    q: "Idem para através de:",
+    choices: [
+      "periferia",
+      "diálogo",
+      "epidemia",
+      "mesóclise",
+      "prólogo"
+    ],
+    answer: 0,
+    explain: "O prefixo 'peri-' em 'periferia' indica atravessar ou contornar algo, correspondendo à noção de 'através de'."
+  },
+  {
+    q: "Assinale a opção em que todos os verbos formam substantivos designativos da ação ou do resultado dela – por meio de sufixos entre si:",
+    choices: [
+      "violar - apresentar - optar",
+      "vingar - estacionamento - plantar",
+      "separar - obedecer - viver",
+      "aceitar - romper - alargar",
+      "ouvir - reunir - determinar"
+    ],
+    answer: 0,
+    explain: "Na alternativa A, todos os verbos formam substantivos de ação ou resultado, por sufixação."
+  },
+  {
+    q: "O sufixo do vocábulo habilidade e o sufixo do vocábulo transferência são usados para derivar, respectivamente, nomes das formas:",
+    choices: [
+      "íntimo - revelar",
+      "sutil - surgir",
+      "efêmero - ocorrer",
+      "pobre - advertir",
+      "intenso - comprometer"
+    ],
+    answer: 0,
+    explain: "O sufixo '-dade' em 'habilidade' e '-ção' em 'transferência' derivam substantivos correspondentes à ação ou qualidade."
+  },
+  {
+    q: "Tendo em vista o tempo em que foi empregada neste trecho a forma verbal cederam, assinale a correta divisão e classificação de seus elementos mórficos:",
+    choices: [
+      "CED=radical; E=variante da vogal temática; CEDE=tema, RAM=desinência acumulativa",
+      "CEDER=radical; A=vogal temática; CEDERA=tema; M=desinência acumulativa",
+      "CED=radical; E=variante de vogal temática; CEDE=tema; RA=desinência modo-temporal; M=desinência número-pessoal",
+      "CE=radical; E=vogal temática; CEDE=tema; RA=desinência modo-temporal; M=desinência número-pessoal",
+      "CED=radical; E=vogal temática; CED=tema; RAM=desinência acumulativa"
+    ],
+    answer: 2,
+    explain: "Na alternativa C, 'CED' é radical, 'E' vogal temática, 'CEDE' tema, 'RA' desinência modo-temporal, 'M' desinência número-pessoal."
+  },
+
+    {
+    q: "Assinale a opção em que a inversão da ordem dos termos altera o sentido fundamental do enunciado:",
+    choices: [
+      "era uma poesia simples / era uma simples poesia",
+      "possuía um sentimento vago / possuía um vago sentimento",
+      "olhava uma parasita mimosa / olhava uma mimosa parasita",
+      "havia um contraste incrível / havia um incrível contraste"
+    ],
+    answer: 2,
+    explain: "Na alternativa C, inverter 'parasita mimosa' para 'mimosa parasita' altera o sentido fundamental da frase."
+  },
+  {
+    q: "Qual a palavra ou expressão grifada que não tem valor adjetivo:",
+    choices: [
+      "Vontade de mudar as cores do vestido tão feias",
+      "De minha pátria, de minha pátria sem sapatos",
+      "Vi minha humilde morte cara a cara",
+      "Fiquei simples, sem fontes",
+      "Em longas lágrimas amargas"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, 'de minha pátria' funciona como complemento ou substantivo, não como adjetivo."
+  },
+  {
+    q: "A expressão sublinhada em “Há um quer que seja de satânico na pupila da onça” funciona como:",
+    choices: [
+      "substantivo",
+      "adjetivo",
+      "advérbio",
+      "pronome",
+      "verbo"
+    ],
+    answer: 1,
+    explain: "A expressão funciona como adjetivo, qualificando 'quer que seja'."
+  },
+  {
+    q: "Em algumas gramáticas, o adjetivo vem definido como sendo 'a palavra que modifica o substantivo'. Assinale a alternativa em que o adjetivo sublinhado CONTRARIA a definição:",
+    choices: [
+      "encontrei a linda moça",
+      "ali só vi gente feliz",
+      "quarto limpo é outra coisa",
+      "tomar sorvete é gostoso",
+      "ele é um homem cruel"
+    ],
+    answer: 3,
+    explain: "Na alternativa D, 'gostoso' modifica a oração inteira, não apenas um substantivo, contrariando a definição."
+  },
+  {
+    q: "Em 'Os brasileiros marinheiros têm ocasião de conhecer o mundo todo', a classe da palavra grifada é:",
+    choices: [
+      "adjetivo",
+      "locução adjetiva",
+      "pronome adjetivo",
+      "substantivo",
+      "adjetivo pátrio"
+    ],
+    answer: 4,
+    explain: "'Brasileiros' indica nacionalidade, funcionando como adjetivo pátrio."
+  },
+  {
+    q: "Assinale a opção em que a locução destacada tem valor adjetivo:",
+    choices: [
+      "comprou papel de seda",
+      "cortou-o com amor",
+      "mudava de cor",
+      "gritava com maldade",
+      "salteou-o com atiradeiras"
+    ],
+    answer: 0,
+    explain: "'de seda' qualifica o substantivo 'papel', funcionando como locução adjetiva."
+  },
+  {
+    q: "Aponte a dupla de adjetivos uniformes:",
+    choices: [
+      "comum - incolor",
+      "impostor - inferior",
+      "são - cortês",
+      "hebreu - palerma",
+      "feliz - ancião"
+    ],
+    answer: 0,
+    explain: "Na alternativa A, ambos os adjetivos podem ser usados de forma independente sem alteração de gênero ou número, sendo uniformes."
+  },
+  {
+    q: "Assinale a opção em que ambos os termos não admitem flexão de gênero:",
+    choices: [
+      "inglesa pálida",
+      "jovem leitor",
+      "alguns mestres",
+      "semelhante criatura",
+      "moça ideal"
+    ],
+    answer: 1,
+    explain: "'Jovem' e 'leitor' não mudam a forma para indicar gênero."
+  },
+  {
+    q: "Assinale o substantivo sobre-comum:",
+    choices: [
+      "mártir",
+      "cliente",
+      "lápis",
+      "garoto",
+      "cônjuge"
+    ],
+    answer: 0,
+    explain: "'Mártir' é sobre-comum, pois não varia de gênero para indicar sexo."
+  },
+  {
+    q: "Substantivo que admite dois plurais:",
+    choices: [
+      "verão",
+      "cristão",
+      "desvão",
+      "demão",
+      "irmão"
+    ],
+    answer: 4,
+    explain: "'Irmão' tem dois plurais possíveis: 'irmãos' e 'irmãs'."
+  },
+  {
+    q: "Assinale a alternativa em que ocorre o emprego adequado do artigo antes dos substantivos:",
+    choices: [
+      "o sósia, o elipse, a omoplata",
+      "a champanha, o telefonema, a motocicleta",
+      "o anátema, o diabete, o saca-rolhas",
+      "o cal, o formicida, a libido",
+      "o lança-perfume, a cataplasma, a dó"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, todos os artigos estão corretos quanto ao gênero e número."
+  },
+  {
+    q: "O par de vocábulos que pertencem ao gênero masculino é:",
+    choices: [
+      "telefonema, champanha",
+      "aguardente, elipse",
+      "testemunha, clã",
+      "sósia, dinamite",
+      "cal, guaraná"
+    ],
+    answer: 4,
+    explain: "Na alternativa E, 'cal' e 'guaraná' são masculinos."
+  },
+  {
+    q: "Indique o grupo de vocábulos que só admitem 'o':",
+    choices: [
+      "cal, dó, sentinela",
+      "contralto, eczema, aluvião",
+      "hosana, apêndice, apendicite",
+      "telefonema, eclipse, afã",
+      "trama, elipse, omoplata"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, todos os substantivos são masculinos e só admitem o artigo 'o'."
+  },
+  {
+    q: "Assinale o par de vocábulos que formam o plural como bênção e povo, respectivamente (considerar mudança de timbre da vogal tônica no segundo vocábulo):",
+    choices: [
+      "irmão / osso",
+      "alemão / ovo",
+      "balão / fogo",
+      "órgão / piloto",
+      "botão / cachorro"
+    ],
+    answer: 1,
+    explain: "'Alemão' forma plural 'alemães' e 'ovo' forma plural 'ovos'."
+  },
+  {
+    q: "Assinale o par de vocábulos que formam o plural como balão e caneta-tinteiro, respectivamente:",
+    choices: [
+      "vulcão / abaixo-assinado",
+      "questão / manga-rosa",
+      "razão / guarda-chuva",
+      "irmão / salário-família",
+      "bênção / papel-moeda"
+    ],
+    answer: 4,
+    explain: "'Bênção' forma plural 'bênçãos' e 'papel-moeda' permanece invariável."
+  },
+
+  {
+    q: "Marque a alternativa formada de vocábulos compostos cujo último elemento é o único a flexionar-se:",
+    choices: [
+      "saca-rolha, surdo-mudo, azul-escuro",
+      "guarda-florestal, pára-raio, abaixo-assinado",
+      "beija-flor, segunda-feira, todo-poderoso",
+      "guarda-civil, pró-reitor, agro-pastoril",
+      "guarda-roupa, anglo-americano, verde-claro"
+    ],
+    answer: 1,
+    explain: "Na alternativa B, apenas o último elemento de cada composto (pára-raio, abaixo-assinado) sofre flexão no plural ou gênero."
+  },
+  {
+    q: "Assinale a opção que caracteriza corretamente o plural de copo-d’água, obra-prima e Decreto-Lei:",
+    choices: [
+      "copos-d’água, obra-primas, decreto-leis",
+      "copos-d’água, obras-prima, decretos-lei",
+      "copo-d’águas, obras-primas, decretos-leis",
+      "copos-d’água, obras-primas, decretos-lei",
+      "copos-d’águas, obras-primas, decretos-leis"
+    ],
+    answer: 3,
+    explain: "O plural de copo-d’água mantém o primeiro elemento inalterado, obra-primas flexiona o substantivo principal, e decreto-lei flexiona o primeiro elemento."
+  },
+  {
+    q: "Assinale a única alternativa em que há plural mal formado:",
+    choices: [
+      "anão - anões",
+      "júnior - júniors",
+      "açúcar - açúcares",
+      "espécimen - especímenes",
+      "cidadão - cidadãos"
+    ],
+    answer: 1,
+    explain: "O plural correto de 'júnior' é invariável em português ou 'júniores'; 'júniors' é incorreto."
+  },
+  {
+    q: "Assinale a série de nomes masculino, feminino e masculino:",
+    choices: [
+      "tribo, eclipse, tabu",
+      "telefonema, alvará, elipse",
+      "bílis, rês, ágape",
+      "fibroma, poema, perdiz",
+      "anátema, cal, estratagema"
+    ],
+    answer: 3,
+    explain: "Na alternativa D, fibroma (m), poema (f), perdiz (m) seguem a ordem indicada."
+  },
+  {
+    q: "A palavra caminhãozinho, no grau diminutivo, nos recorda, a propósito, que são válidas todas as considerações abaixo sobre esse assunto (diminutivo) menos uma. Aponte a exceção:",
+    choices: [
+      "O plural de caminhãozinho é caminhõezinhos, como o de anelzinho é aneizinhos",
+      "além de expressar o “tamanho diminuído” do ser, pode a forma diminutiva expressar emoções ou sentimentos de diversas naturezas: carinho, ironia, depreciação, etc.",
+      "em certos adjetivos, sufixos característicos do diminutivo podem expressar verdadeiro superlativo (certinho)",
+      "encontramos, em português, diversos sufixos caracterizadores do diminutivo. Entre eles, a forma ote (frangote, saiote, rapazote; etc)",
+      "têm sentido pejorativo os diminutivos corpúsculo, livreco"
+    ],
+    answer: 0,
+    explain: "O plural correto de 'caminhãozinho' é caminhõezinhos, mas o exemplo de 'anelzinho' é inadequado; a regra citada na alternativa A contém erro."
+  },
+  {
+    q: "Eu 'vou-me embora pra Pasárgada', a palavra grifada é:",
+    choices: [
+      "palavra de realce",
+      "palavra de inclusão",
+      "conjunção subordinativa",
+      "advérbio",
+      "preposição"
+    ],
+    answer: 3,
+    explain: "'E embora' ou 'embora' funciona como advérbio de lugar, indicando movimento."
+  },
+  {
+    q: "As expressões sublinhadas correspondem a um advérbio, EXCETO em:",
+    choices: [
+      "aparecia aqui vez por outra",
+      "durante o discurso, manteve-se em silêncio",
+      "não disse com certeza se virá",
+      "afirmo-lhe que não o vi frente a frente",
+      "as ações do homem são imprevisíveis"
+    ],
+    answer: 4,
+    explain: "Na alternativa E, 'imprevisíveis' é adjetivo, não advérbio."
+  },
+
 ];
+
 
     let current = Math.floor(Math.random() * questions.length);
 let selected = null;
@@ -335,5 +1253,3 @@ let selected = null;
 
 </body>
 </html>
-
-
